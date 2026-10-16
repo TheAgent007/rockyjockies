@@ -13425,7 +13425,7 @@
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress_block.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\example_class.cpp">
+    <ClCompile Include="src\gameinstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\register_types.cpp">
@@ -31598,7 +31598,7 @@
     <ClInclude Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\example_class.h">
+    <ClInclude Include="src\gameinstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\register_types.h">
