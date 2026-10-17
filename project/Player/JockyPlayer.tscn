@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dy4q8xp3ssk16"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qdoms"]
+size = Vector3(1.5, 1.5, 3.5)
+
+[node name="JockyPlayer" type="player_character" unique_id=1444233444]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=415193529]
+shape = SubResource("BoxShape3D_qdoms")
+
+[node name="RocketVehicleMesh" type="Node3D" parent="CollisionShape" unique_id=1229281484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.80030775, 0)

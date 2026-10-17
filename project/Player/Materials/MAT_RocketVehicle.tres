@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c2mv8x38a1kk"]
+
+[ext_resource type="Texture2D" uid="uid://bk441tmuihg1y" path="res://Player/Textures/colormap.png" id="1_ebre6"]
+
+[resource]
+resource_local_to_scene = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_ebre6")
+albedo_texture_force_srgb = true

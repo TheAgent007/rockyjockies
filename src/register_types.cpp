@@ -6,19 +6,25 @@
 #include <godot_cpp/godot.hpp>
 
 #include "gameinstance.h"
+#include "player_character.h"
 
 using namespace godot;
 
 void initialize_gdextension_types(ModuleInitializationLevel p_level)
 {
-	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
+	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE)
+	{
 		return;
 	}
+
 	GDREGISTER_CLASS(gameinstance);
+	GDREGISTER_CLASS(player_character);
 }
 
-void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {
-	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
+void uninitialize_gdextension_types(ModuleInitializationLevel p_level)
+{
+	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE)
+	{
 		return;
 	}
 }

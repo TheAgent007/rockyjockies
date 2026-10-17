@@ -4574,6 +4574,8 @@
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress_block.c" />
     <ClCompile Include="src\gameinstance.cpp" />
     <ClCompile Include="src\gen\doc_data.gen.cpp" />
+    <ClCompile Include="src\player_character.cpp" />
+    <ClCompile Include="src\player_character.cpp" />
     <ClCompile Include="src\register_types.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -10636,6 +10638,8 @@
     <ClInclude Include="godot-engine\thirdparty\zstd\zstd.h" />
     <ClInclude Include="godot-engine\thirdparty\zstd\zstd_errors.h" />
     <ClInclude Include="src\gameinstance.h" />
+    <ClInclude Include="src\player_character.h" />
+    <ClInclude Include="src\player_character.h" />
     <ClInclude Include="src\register_types.h" />
   </ItemGroup>
   <ItemGroup>
