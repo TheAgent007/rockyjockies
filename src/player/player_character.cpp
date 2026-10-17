@@ -1,4 +1,4 @@
-#include "player_character.h"
+#include "player/player_character.h"
 
 #include "godot_cpp/classes/engine.hpp"
 #include "godot_cpp/core/class_db.hpp"

@@ -78,6 +78,7 @@
     <NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath>src
 ; godot-cpp\include; godot-cpp\gen\include; godot-cpp\gdextension;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <IntDir>$(ShortProjectName)\$(Platform)\$(Configuration)\intermediate</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>scons platform=windows target=template_release</NMakeBuildCommandLine>
@@ -4572,10 +4573,9 @@
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_ddict.c" />
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress.c" />
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress_block.c" />
-    <ClCompile Include="src\gameinstance.cpp" />
+    <ClCompile Include="src\system\gameinstance.cpp" />
     <ClCompile Include="src\gen\doc_data.gen.cpp" />
-    <ClCompile Include="src\player_character.cpp" />
-    <ClCompile Include="src\player_character.cpp" />
+    <ClCompile Include="src\player\player_character.cpp" />
     <ClCompile Include="src\register_types.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -10637,9 +10637,8 @@
     <ClInclude Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress_internal.h" />
     <ClInclude Include="godot-engine\thirdparty\zstd\zstd.h" />
     <ClInclude Include="godot-engine\thirdparty\zstd\zstd_errors.h" />
-    <ClInclude Include="src\gameinstance.h" />
-    <ClInclude Include="src\player_character.h" />
-    <ClInclude Include="src\player_character.h" />
+    <ClInclude Include="src\system\gameinstance.h" />
+    <ClInclude Include="src\player\player_character.h" />
     <ClInclude Include="src\register_types.h" />
   </ItemGroup>
   <ItemGroup>

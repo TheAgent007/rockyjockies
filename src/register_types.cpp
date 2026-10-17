@@ -5,8 +5,8 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "gameinstance.h"
-#include "player_character.h"
+#include "system/gameinstance.h"
+#include "player/player_character.h"
 
 using namespace godot;
 
