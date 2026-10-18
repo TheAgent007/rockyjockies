@@ -1,5 +1,21 @@
 [gd_scene format=3 uid="uid://1w7cwxq0fel2"]
 
+[ext_resource type="PackedScene" uid="uid://dy4q8xp3ssk16" path="res://Player/JockyPlayer.tscn" id="1_vgaei"]
+
 [node name="LevelTest" type="Node3D" unique_id=1106959758]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1877964625]
+transform = Transform3D(-0.7830885, 0.30747056, -0.5405872, -0.040275287, 0.84233916, 0.53744084, 0.62060493, 0.44263595, -0.64724255, 0, 12.730321, 0)
+shadow_enabled = true
+
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1474858714]
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1029707957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.338009, 2.7798376, -20.203213)
+use_collision = true
+size = Vector3(20, 10, 20)
+
+[node name="JockyPlayer" parent="." unique_id=1444233444 instance=ExtResource("1_vgaei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.646274, 5.250836, 10.402988)

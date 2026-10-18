@@ -15,9 +15,9 @@ enum class GameState : uint8_t
 	Initializing = 3
 };
 
-class gameinstance : public Node
+class GameInstance : public Node
 {
-	GDCLASS(gameinstance, Node)
+	GDCLASS(GameInstance, Node)
 
 private:
 
@@ -31,8 +31,12 @@ protected:
 
 public:
 
-	gameinstance();
-	~gameinstance();
+	GameInstance();
+	~GameInstance();
+
+	bool isRunningInEditor();
+
+	void _notification(int p_what);
 
 	virtual void _ready() override final;
 
