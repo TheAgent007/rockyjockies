@@ -191,51 +191,64 @@ void PlayerCharacter::update_movement(double delta)
 	{
 		Transform3D player_transform = get_global_transform();
 
-		Vector3 forward = player_transform.basis.get_column(2); // Z-axis (Backward)
-		Vector3 right = player_transform.basis.get_column(0); // X-axis (Right)
+		Vector3 forward = player_transform.basis.get_column(2); // backward
+		Vector3 right = player_transform.basis.get_column(0); // right
 
 		forward.y = 0.0f;
 		right.y = 0.0f;
 		forward = forward.normalized();
 		right = right.normalized();
 
-		Vector3 direction = (right * input_dir.x) + (forward * input_dir.y);
+		Vector3 direction = (forward * input_dir.y);
 		direction = direction.normalized();
 
-		Vector3 target_velocity = direction * max_speed;
+		// cache current velocity
+		Vector3 current_vel = Vector3(velocity.x, 0.f, velocity.z);
 
-		// Clamp strafe speed since we dont want you accumilating horizontal velocity
-		const float clamped_x_velocity = Math::abs(target_velocity.z) > 0.f ? Math::clamp(target_velocity.x, -max_strafe_speed, max_strafe_speed) : 0.0f;
-		
-		target_velocity.x = clamped_x_velocity;
-
-		// Cache current velocity
-		Vector3 current_velocity = Vector3(velocity.x, 0.f, velocity.z);
-
-		if (input_dir != Vector2())
+		if (input_dir.y < 0.0f) // apply forward velocity
 		{
-			current_velocity = current_velocity.move_toward(target_velocity, acceleration * delta);
+			Vector3 vel_change = (-forward * acceleration) * delta;
+			current_vel += vel_change;
 
-			const Vector3 current_velocity_local = to_local(get_global_position() + current_velocity);
-
-			if (current_velocity_local.z < -1.f) // only turn if you are moving forward
-			{
-				double target_angle = Math::atan2(-current_velocity.x, -current_velocity.z);
-
-				Vector3 rot = get_rotation();
-				const double current_angle = rot.y;
-
-				rot.y = target_angle;
-
-				set_rotation(rot);
-			}
+			current_vel.z = Math::clamp(current_vel.z, -max_speed, max_speed);
+			current_vel.x = Math::clamp(current_vel.x, -max_speed, max_speed);
 		}
 		else // not moving just use friction?
 		{
-			current_velocity = current_velocity.move_toward(Vector3(0.0f, 0.0f, 0.0f), friction * delta);
+			current_vel = current_vel.move_toward(Vector3(0.0f, 0.0f, 0.0f), friction * delta);
 		}
 
-		last_velocity_direction = current_velocity;
+		last_velocity_direction = current_vel;
+		current_speed = current_vel.length();
+
+
+		// update turn rotation and roll
+		const Vector3 current_velocity_local = to_local(get_global_position() + last_velocity_direction);
+		const Vector3 desired_move_dir = current_vel.normalized() * -forward;
+
+		if (desired_move_dir.length() > 0.0f) // if we are trying to turn and moving forward apply rotation
+		{
+			Vector3 current_rot = get_rotation();
+			current_rot.y += (turn_rate * -input_dir.x) * delta;
+			current_rot.z += (roll_rate * -input_dir.x) * delta;
+			current_rot.z = Math::clamp(current_rot.z, roll_min, roll_max);
+
+			set_rotation(current_rot);
+
+			Vector3 new_forward = get_global_transform().basis.get_column(2); // get updated forward
+
+			// update our current velocity direction since we turned
+			last_velocity_direction = -new_forward * current_speed;
+		}
+
+		if (Math::abs(input_dir.x) == 0.0f)
+		{
+			Vector3 current_rot = get_rotation();
+			Vector3 target_rot = Vector3(current_rot.x, current_rot.y,0.0f);
+			current_rot.z = Math::lerp_angle((double)current_rot.z, (double)target_rot.z, roll_return_rate * delta);
+
+			set_rotation(current_rot);
+		}
 	}
 
 	velocity.x = last_velocity_direction.x;

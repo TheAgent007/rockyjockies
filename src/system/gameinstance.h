@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMEINSTANCE_H
+#define GAMEINSTANCE_H
 
 #include "godot_cpp/classes/node.hpp"
 #include "godot_cpp/classes/wrapped.hpp"
@@ -46,3 +47,5 @@ public:
 	int get_score_for_player() const;
 	void reset_game();
 };
+
+#endif // GAMEINSTANCE_H

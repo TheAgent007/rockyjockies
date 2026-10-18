@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PLAYER_CHARACTER_H
+#define PLAYER_CHARACTER_H
 
 #include "system/gameinstance.h"
 
@@ -33,6 +34,14 @@ private:
 	float acceleration = 2.f; // expose to gd
 	float decceleration = 2.f; // exposed to gd
 	float friction = 3.f; // exposed to gd
+
+	float turn_rate = 0.25f;
+
+	float roll_rate = 0.12;
+	float roll_return_rate = 6.0f;
+
+	float roll_min = -0.25f;
+	float roll_max = 0.25f;
 
 	float camera_height = 2.0f;
 
@@ -128,3 +137,5 @@ public:
 	}
 	// gd expose end
 };
+
+#endif // PLAYER_CHARACTER_H
