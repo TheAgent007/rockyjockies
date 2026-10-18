@@ -5,6 +5,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_qdoms"]
 size = Vector3(1.5, 1.5, 3.5)
 
+[sub_resource type="Environment" id="Environment_xqmln"]
+ssao_enabled = true
+glow_enabled = true
+
 [node name="JockyPlayer" type="PlayerCharacter" unique_id=919747899]
 max_strafe_speed = 1.8
 acceleration = 8.0
@@ -21,11 +25,13 @@ top_level = true
 spring_length = 4.0
 
 [node name="Camera" type="Camera3D" parent="CollisionShape/SpringArm3D" unique_id=1086554618]
+environment = SubResource("Environment_xqmln")
 current = true
 fov = 80.0
 
 [node name="RocketMesh" parent="CollisionShape" unique_id=279052472 instance=ExtResource("1_cbnsh")]
 transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, 0, -0.6972791, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1453025436]
+[node name="HoverRaycast" type="RayCast3D" parent="." unique_id=1453025436]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6435861, 0)
+target_position = Vector3(0, -2, 0)

@@ -3,6 +3,7 @@
 
 #include "system/gameinstance.h"
 
+#include "godot_cpp/classes/ray_cast3d.hpp"
 #include "godot_cpp/classes/input_event_mouse_motion.hpp"
 #include "godot_cpp/classes/character_body3d.hpp"
 #include "godot_cpp/classes/wrapped.hpp"
@@ -26,6 +27,7 @@ private:
 	Node3D* rocket_vehicle_mesh = nullptr;
 	Camera3D* camera = nullptr;
 	SpringArm3D* springarm = nullptr;
+	RayCast3D* hover_raycast = nullptr;
 
 	GameInstance* gameinstance_ref = nullptr;
 
@@ -35,21 +37,24 @@ private:
 	float decceleration = 2.f; // exposed to gd
 	float friction = 3.f; // exposed to gd
 
-	float turn_rate = 0.25f;
+	float turn_rate = 0.25f; // exposed to gd
 
-	float roll_rate = 0.12;
-	float roll_return_rate = 6.0f;
+	float roll_rate = 0.12; // exposed to gd
+	float roll_return_rate = 6.0f; // exposed to gd
 
 	float roll_min = -0.25f;
 	float roll_max = 0.25f;
 
-	float camera_height = 2.0f;
+	float target_hover_height = 1.5;
+	float spring_stiffness = 30.0;
+	float spring_damping = 4.0;
 
+	float camera_height = 2.0f;
 	float gravity_rocket = 2.f;
 
 	// camera look settings
-	float turn_sensitivity = 0.002f;
-	float look_sensitivity = 0.002f;
+	float turn_sensitivity = 0.0015f;
+	float look_sensitivity = 0.0015f;
 
 	float camera_pitch = 0.0f;
 	Vector2 look_input_dir = Vector2();
@@ -105,7 +110,6 @@ public:
 		return max_strafe_speed;
 	}
 
-
 	void set_decceleration(const float in_decceleration)
 	{
 		decceleration = in_decceleration;
@@ -134,6 +138,26 @@ public:
 	float get_friction() const
 	{
 		return friction;
+	}
+
+	void set_turnrate(const float in_turnrate)
+	{
+		turn_rate = in_turnrate;
+	};
+
+	float get_turnrate() const
+	{
+		return turn_rate;
+	}
+
+	void set_rollrate(const float in_rollrate)
+	{
+		roll_rate = in_rollrate;
+	};
+
+	float get_rollrate() const
+	{
+		return roll_rate;
 	}
 	// gd expose end
 };

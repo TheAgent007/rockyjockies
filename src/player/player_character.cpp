@@ -32,12 +32,21 @@ void PlayerCharacter::_bind_methods()
 	ClassDB::bind_method(D_METHOD("set_friction", "in_friction"), &PlayerCharacter::set_friction);
 	ClassDB::bind_method(D_METHOD("get_friction"), &PlayerCharacter::get_friction);
 
+	ClassDB::bind_method(D_METHOD("set_turnrate", "in_turnrate"), &PlayerCharacter::set_turnrate);
+	ClassDB::bind_method(D_METHOD("get_turnrate"), &PlayerCharacter::get_turnrate);
+
+	ClassDB::bind_method(D_METHOD("set_rollrate", "in_rollrate"), &PlayerCharacter::set_rollrate);
+	ClassDB::bind_method(D_METHOD("get_rollrate"), &PlayerCharacter::get_rollrate);
+
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_speed",PROPERTY_HINT_NONE,"Max speed of Rocky Jockey"), "set_maxspeed", "get_maxspeed");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_strafe_speed"), "set_max_strafe_speed", "get_max_strafe_speed");
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "acceleration"), "set_acceleration", "get_acceleration");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "decceleration"), "set_decceleration", "get_decceleration");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "friction"), "set_friction", "get_friction");
+
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "turn_rate"), "set_turnrate", "get_turnrate");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "roll_rate"), "set_rollrate", "get_rollrate");
 }
 
 PlayerCharacter::PlayerCharacter()
@@ -52,21 +61,21 @@ PlayerCharacter::~PlayerCharacter(){}
 
 void PlayerCharacter::_notification(int p_what)
 {
-	switch (p_what)
-	{
-		NOTIFICATION_READY:
-
-			break;
-	}
-
 	Node::_notification(p_what);
 }
+
+void PlayerCharacter::_ready()
+{
+	initialize_references();
+}
+
 
 void PlayerCharacter::initialize_references() 
 {
 	UtilityFunctions::print("initializing refs");
 	SpringArm3D* springarm_ref = cast_to<SpringArm3D>(get_node_or_null("CollisionShape/SpringArm3D"));
 	Camera3D* camera_ref = cast_to<Camera3D>(get_node_or_null("CollisionShape/SpringArm3D/Camera"));
+	RayCast3D* hover_raycast_ref = cast_to<RayCast3D>(get_node_or_null("HoverRaycast"));
 
 	if (camera_ref)
 	{
@@ -79,17 +88,17 @@ void PlayerCharacter::initialize_references()
 		springarm = springarm_ref;
 	}
 
-	gameinstance_ref = Object::cast_to<GameInstance>(Engine::get_singleton()->get_singleton("GameInstance"));
-}
+	if (hover_raycast_ref)
+	{
+		hover_raycast = hover_raycast_ref;
+	}
 
-void PlayerCharacter::_ready()
-{
-	initialize_references();
+	gameinstance_ref = Object::cast_to<GameInstance>(Engine::get_singleton()->get_singleton("GameInstance"));
 }
 
 void PlayerCharacter::load_rocket_mesh(Node3D* mesh_node)
 {
-	// Load the resource from the res:// path
+	// load the resource from the res:// path
 	Ref<PackedScene> rocket_mesh = ResourceLoader::get_singleton()->load("res://Player/Meshes/boat-speed-a.glb");
 
 	if (rocket_mesh.is_valid())
@@ -120,7 +129,7 @@ void PlayerCharacter::_physics_process(double delta)
 	}
 }
 
-// Get mouse input
+// get mouse input
 void PlayerCharacter::_unhandled_input(const Ref<InputEvent> &event) 
 {
 	Ref<InputEventMouseMotion> mouse_motion = event;
@@ -241,6 +250,7 @@ void PlayerCharacter::update_movement(double delta)
 			last_velocity_direction = -new_forward * current_speed;
 		}
 
+		// roll left and right when turning
 		if (Math::abs(input_dir.x) == 0.0f)
 		{
 			Vector3 current_rot = get_rotation();
@@ -251,10 +261,29 @@ void PlayerCharacter::update_movement(double delta)
 		}
 	}
 
+	// finally set 2D velocity
 	velocity.x = last_velocity_direction.x;
 	velocity.z = last_velocity_direction.z;
 
-	velocity.y -= gravity * delta;
+	// make hover
+	if (hover_raycast && hover_raycast->is_colliding())
+	{
+		Vector3 collision_point = hover_raycast->get_collision_point();
+
+		const float current_height = get_global_transform().origin.distance_to(collision_point);
+		const float displacement = target_hover_height - current_height;
+		const float spring_force = displacement * spring_stiffness;
+
+		const float damping_force = velocity.y * spring_damping;
+		const float vertical_force = spring_force - damping_force;
+
+		velocity.y += vertical_force * delta;
+	}
+	else
+	{
+		// Apply normal gravity if the ray doesn't hit the ground (e.g., falling off a cliff)
+		velocity.y -= gravity * delta;
+	}
 
 	set_velocity(velocity);
 	move_and_slide();

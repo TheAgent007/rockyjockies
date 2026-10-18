@@ -33,4 +33,4 @@ use_collision = true
 size = Vector3(100, 8.341, 4.253)
 
 [node name="JockyPlayer" parent="." unique_id=1444233444 instance=ExtResource("1_vgaei")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.646274, 5.250836, 10.402988)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.384536, 5.250836, 8.558655)
