@@ -4,6 +4,9 @@
 
 [node name="LevelTest" type="Node3D" unique_id=1106959758]
 
+[node name="WorldInfo" type="WorldInfo" parent="." unique_id=537431912]
+mode_type = Callable()
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1877964625]
 transform = Transform3D(-0.7830885, 0.30747056, -0.5405872, -0.040275287, 0.84233916, 0.53744084, 0.62060493, 0.44263595, -0.64724255, 0, 12.730321, 0)
 shadow_enabled = true
