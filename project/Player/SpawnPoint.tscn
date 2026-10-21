@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cxslfvste8tg0"]
+
+[ext_resource type="Texture2D" uid="uid://le1i23wal2l2" path="res://Editor/Icons/joystick.png" id="1_jkura"]
+
+[node name="SpawnPoint" type="PlayerSpawnPoint" unique_id=1697078707]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=220671976]
+pixel_size = 0.03
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_jkura")

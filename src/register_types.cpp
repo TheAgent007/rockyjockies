@@ -8,7 +8,9 @@
 #include <godot_cpp/godot.hpp>
 
 #include "system/gameinstance.h"
+#include "game/gamemode.h"
 #include "player/player_character.h"
+#include "player/player_spawnpoint.h"
 
 using namespace godot;
 
@@ -20,9 +22,11 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	}
 
 	GDREGISTER_CLASS(GameInstance);
+	GDREGISTER_CLASS(GameMode);
 	GDREGISTER_CLASS(PlayerCharacter);
+	GDREGISTER_CLASS(PlayerSpawnPoint);
 
-	// Instantiate and register to the Engine
+	// instantiate and register to the Engine
 	GameInstance* gameinstance_inst = memnew(GameInstance);
 	Engine::get_singleton()->register_singleton("GameInstance", gameinstance_inst);
 }
@@ -37,7 +41,7 @@ void uninitialize_gdextension_types(ModuleInitializationLevel p_level)
 
 extern "C"
 {
-	// Initialization
+	// initialization
 	GDExtensionBool GDE_EXPORT rockyjockies_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization)
 	{
 		GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);

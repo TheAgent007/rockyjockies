@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1w7cwxq0fel2"]
 
-[ext_resource type="PackedScene" uid="uid://dy4q8xp3ssk16" path="res://Player/JockyPlayer.tscn" id="1_vgaei"]
+[ext_resource type="PackedScene" uid="uid://cxslfvste8tg0" path="res://Player/SpawnPoint.tscn" id="2_jh4fv"]
 
 [node name="LevelTest" type="Node3D" unique_id=1106959758]
 
@@ -9,6 +9,7 @@ transform = Transform3D(-0.7830885, 0.30747056, -0.5405872, -0.040275287, 0.8423
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1474858714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.042043686, 1.9073486e-06, 0.059168816)
 use_collision = true
 size = Vector3(100, 1, 100)
 
@@ -32,5 +33,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.651, 51.533737)
 use_collision = true
 size = Vector3(100, 8.341, 4.253)
 
-[node name="JockyPlayer" parent="." unique_id=1444233444 instance=ExtResource("1_vgaei")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.384536, 5.250836, 8.558655)
+[node name="SpawnPoint" parent="." unique_id=1697078707 instance=ExtResource("2_jh4fv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8872614, 3.6313324, 15.733686)

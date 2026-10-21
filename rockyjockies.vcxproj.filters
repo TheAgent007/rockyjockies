@@ -13439,6 +13439,12 @@
     <ClCompile Include="src\player\player_character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\player\player_spawnpoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\gamemode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="godot-engine\platform\windows\uiautomationcore.arm32.def">
@@ -31608,6 +31614,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\player\player_character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\player\player_spawnpoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\gamemode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -169,7 +169,7 @@ void PlayerCharacter::update_camera(double delta)
 			camera_pitch -= look_input_dir.y * look_sensitivity;
 			camera_pitch = UtilityFunctions::clamp(camera_pitch, UtilityFunctions::deg_to_rad(-89.0f), UtilityFunctions::deg_to_rad(89.0f));
 
-			// Get the current euler rotations, update pitch, and reapply
+			// get the current euler rotations, update pitch, and reapply
 			Vector3 current_rotation = springarm->get_rotation();
 			current_rotation.x = camera_pitch;
 			springarm->set_rotation(current_rotation);
@@ -281,7 +281,7 @@ void PlayerCharacter::update_movement(double delta)
 	}
 	else
 	{
-		// Apply normal gravity if the ray doesn't hit the ground (e.g., falling off a cliff)
+		// apply gravity
 		velocity.y -= gravity * delta;
 	}
 
