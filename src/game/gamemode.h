@@ -19,6 +19,8 @@ public:
 
 	void on_client_connected(int64_t peer_id);
 
+	void on_client_disconnected(int64_t peer_id);
+
 	void spawn_player(int64_t peer_id);
 
 private:
