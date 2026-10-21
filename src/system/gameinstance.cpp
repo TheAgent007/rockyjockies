@@ -1,6 +1,7 @@
 #include "system/gameinstance.h"
 #include "player/player_spawnpoint.h"
 #include "game/gamemode.h"
+#include "game/menumode.h"
 
 #include "godot_cpp/classes/scene_tree.hpp"
 #include "godot_cpp/core/class_db.hpp"
@@ -15,17 +16,14 @@ using namespace godot;
 // Expose these to GD script
 void GameInstance::_bind_methods()
 {
-	ClassDB::bind_method(D_METHOD("add_score", "amount"), &GameInstance::add_score_for_player);
-	ClassDB::bind_method(D_METHOD("get_score"), &GameInstance::get_score_for_player);
-
 	ClassDB::bind_method(D_METHOD("check_initialization"), &GameInstance::check_initialization);
 }
 
 GameInstance::GameInstance() 
 {
-	if (isRunningInEditor())
+	if (isRunningInEditor(true))
 	{
-		currentgamestate = GameState::Editor;
+		currentgamestate = GameState::Editor_InGame;
 	}
 }
 
@@ -47,7 +45,7 @@ void GameInstance::check_initialization()
 	MainLoop* main_loop = Engine::get_singleton()->get_main_loop();
 	SceneTree* tree = Object::cast_to<SceneTree>(main_loop);
 
-	if (tree)
+	if (tree) // we can initialize now since the tree exists
 	{
 		_initialize();
 	}
@@ -59,30 +57,38 @@ void GameInstance::check_initialization()
 
 void GameInstance::_initialize()
 {
-	MainLoop* main_loop = Engine::get_singleton()->get_main_loop();
-	SceneTree* tree = Object::cast_to<SceneTree>(main_loop);
-
-	// spawn base game mode
-	Node* current_scene = tree->get_current_scene();
-
-	if (current_scene)
+	if (!is_initialized)
 	{
-		UtilityFunctions::print("Creating Game Mode.");
-		GameMode* new_GameMode = memnew(GameMode);
-		current_scene->add_child(new_GameMode);
+		MainLoop* main_loop = Engine::get_singleton()->get_main_loop();
+		SceneTree* tree = Object::cast_to<SceneTree>(main_loop);
+
+		// spawn base game mode
+		Node* current_scene = tree->get_current_scene();
+
+		if (current_scene)
+		{
+			if (currentgamestate == GameState::Editor_InGame)
+			{
+				UtilityFunctions::print("Creating Game Mode.");
+				GameMode* new_GameMode = memnew(GameMode);
+				current_scene->add_child(new_GameMode);
+			}
+			else if(currentgamestate == GameState::Menu)
+			{
+				UtilityFunctions::print("Creating Main Menu Mode.");
+
+				MenuMode* new_MenuMode = memnew(MenuMode);
+				current_scene->add_child(new_MenuMode);
+			}
+		}
+
+		is_initialized = true;
 	}
-
-	is_tree_initialized = true;
 }
 
-void GameInstance::_on_node_added()
+bool GameInstance::isRunningInEditor(bool return_editorgame)
 {
-
-}
-
-bool GameInstance::isRunningInEditor()
-{
-	bool is_editor_build = OS::get_singleton()->has_feature("editor");
+	bool is_editor_build = OS::get_singleton()->has_feature("editor") && !return_editorgame;
 	bool is_editor_gui = Engine::get_singleton()->is_editor_hint();
 
 	if (is_editor_build && !is_editor_gui)
@@ -91,16 +97,4 @@ bool GameInstance::isRunningInEditor()
 	}
 
 	return true;
-}
-
-
-void GameInstance::add_score_for_player(int p_amount)
-{
-	score += p_amount;
-	UtilityFunctions::print("Score updated: ", score);
-}
-
-int GameInstance::get_score_for_player() const
-{
-	return score;
 }

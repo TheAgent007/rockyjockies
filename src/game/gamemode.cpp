@@ -17,6 +17,9 @@
 
 void GameMode::_bind_methods()
 {
+	// these should be called from game instance depending on init type, but exposing to gd just incase
+	ClassDB::bind_method(D_METHOD("initialize_for_singleplayer"), &GameMode::initialize_for_singleplayer);
+	ClassDB::bind_method(D_METHOD("initialize_for_multiplayer"), &GameMode::initialize_for_multiplayer);
 }
 
 void GameMode::_ready()
@@ -29,15 +32,23 @@ void GameMode::_ready()
 	{
 		if (!gameinstance_ref->isRunningInEditor())
 		{
-			// should check if we are in a multiplayer game
-			initialize_for_multiplayer();
+			switch (gameinstance_ref->get_gamestate())
+			{
+				case GameState::Editor_InGame:
+				case GameState::InGame_SinglePlayer:
+					initialize_for_singleplayer();
+					break;
+				case GameState::InGame_Multiplayer_Server:
+					initialize_for_multiplayer();
+					break;
+			}
 		}
 	}
 }
 
 void GameMode::initialize_for_singleplayer()
 {
-	spawn_player(0);
+	spawn_player(1);
 }
 
 void GameMode::initialize_for_multiplayer()
@@ -48,7 +59,7 @@ void GameMode::initialize_for_multiplayer()
 		mp->connect("peer_connected", Callable(this, "on_peer_connected"));
 		mp->connect("peer_disconnected", Callable(this, "on_peer_disconnected"));
 
-		spawn_player(1);
+		spawn_player(1); // listen server player spawn
 	}
 }
 

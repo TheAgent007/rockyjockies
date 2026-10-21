@@ -4574,11 +4574,13 @@
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress.c" />
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress_block.c" />
     <ClCompile Include="src\game\gamemode.cpp" />
+    <ClCompile Include="src\game\menumode.cpp" />
     <ClCompile Include="src\player\player_spawnpoint.cpp" />
     <ClCompile Include="src\system\gameinstance.cpp" />
     <ClCompile Include="src\gen\doc_data.gen.cpp" />
     <ClCompile Include="src\player\player_character.cpp" />
     <ClCompile Include="src\register_types.cpp" />
+    <ClCompile Include="src\system\gamesettings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="godot-cpp\gen\include\godot_cpp\core\ext_wrappers.gen.inc" />
@@ -10640,10 +10642,12 @@
     <ClInclude Include="godot-engine\thirdparty\zstd\zstd.h" />
     <ClInclude Include="godot-engine\thirdparty\zstd\zstd_errors.h" />
     <ClInclude Include="src\game\gamemode.h" />
+    <ClInclude Include="src\game\menumode.h" />
     <ClInclude Include="src\player\player_spawnpoint.h" />
     <ClInclude Include="src\system\gameinstance.h" />
     <ClInclude Include="src\player\player_character.h" />
     <ClInclude Include="src\register_types.h" />
+    <ClInclude Include="src\system\gamesettings.h" />
   </ItemGroup>
   <ItemGroup>
     <Xsd Include="godot-engine\doc\class.xsd" />

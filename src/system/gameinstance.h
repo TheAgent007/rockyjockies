@@ -16,8 +16,9 @@ enum class GameState : uint8_t
 	InGame_SinglePlayer = 1,
 	InGame_Multiplayer_Server = 2,
 	InGame_Multiplayer_Client = 3,
-	Editor = 2,
-	Initializing = 3
+	Editor = 4,
+	Editor_InGame = 5,
+	Initializing = 6
 };
 
 class GameInstance : public Object
@@ -26,9 +27,7 @@ class GameInstance : public Object
 
 private:
 
-	int score = 0;
-
-	GameState currentgamestate = GameState::Initializing;
+	GameState currentgamestate = GameState::Editor_InGame;
 
 protected:
 
@@ -39,7 +38,7 @@ public:
 	GameInstance();
 	~GameInstance();
 
-	bool isRunningInEditor();
+	bool isRunningInEditor(bool return_ediitorgame = false);
 
 	void _notification(int p_what);
 
@@ -47,7 +46,10 @@ public:
 
 	void _initialize();
 
-	void _on_node_added();
+	const GameState get_gamestate() const
+	{
+		return currentgamestate;
+	}
 	
 	template <typename T>
 	void find_nodes_by_type(Node* p_root, TypedArray<T>& r_out)
@@ -70,11 +72,7 @@ public:
 		}
 	}
 
-
-	void add_score_for_player(int p_amount);
-	int get_score_for_player() const;
-
-	bool is_tree_initialized = false;
+	bool is_initialized = false;
 };
 
 #endif // GAMEINSTANCE_H
