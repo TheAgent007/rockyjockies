@@ -38,13 +38,16 @@ public:
 	GameInstance();
 	~GameInstance();
 
-	bool isRunningInEditor(bool return_ediitorgame = false);
+	const bool isRunningInEditor(bool return_ediitorgame = false);
+	const bool get_is_dedicated_server();
 
 	void _notification(int p_what);
 
 	void check_initialization();
 
 	void _initialize();
+
+	void spawn_default_mode();
 
 	const GameState get_gamestate() const
 	{

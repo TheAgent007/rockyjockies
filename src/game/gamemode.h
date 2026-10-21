@@ -2,13 +2,13 @@
 #define GAMEMODE_H
 
 #include "system/gameinstance.h"
-#include "godot_cpp/classes/node.hpp"
+#include "game/mode.h"
 
 using namespace godot;
 
-class GameMode : public Node
+class GameMode : public Mode
 {
-	GDCLASS(GameMode, Node)
+	GDCLASS(GameMode, Mode)
 
 public:
 
@@ -16,6 +16,8 @@ public:
 
 	void initialize_for_singleplayer();
 	void initialize_for_multiplayer();
+
+	void on_client_connected(int64_t peer_id);
 
 	void spawn_player(int64_t peer_id);
 

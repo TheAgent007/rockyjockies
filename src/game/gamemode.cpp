@@ -59,7 +59,21 @@ void GameMode::initialize_for_multiplayer()
 		mp->connect("peer_connected", Callable(this, "on_peer_connected"));
 		mp->connect("peer_disconnected", Callable(this, "on_peer_disconnected"));
 
-		spawn_player(1); // listen server player spawn
+		gameinstance_ref = Object::cast_to<GameInstance>(Engine::get_singleton()->get_singleton("GameInstance"));
+
+		if (gameinstance_ref && !gameinstance_ref->get_is_dedicated_server())
+		{
+			spawn_player(1); // listen server player spawn
+		}
+	}
+}
+
+void GameMode::on_client_connected(int64_t peer_id)
+{
+	Ref<MultiplayerAPI> mp = get_multiplayer();
+	if (mp.is_valid() && mp->is_server())
+	{
+		spawn_player(peer_id);
 	}
 }
 

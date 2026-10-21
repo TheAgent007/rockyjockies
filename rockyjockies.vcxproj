@@ -4575,6 +4575,8 @@
     <ClCompile Include="godot-engine\thirdparty\zstd\decompress\zstd_decompress_block.c" />
     <ClCompile Include="src\game\gamemode.cpp" />
     <ClCompile Include="src\game\menumode.cpp" />
+    <ClCompile Include="src\game\mode.cpp" />
+    <ClCompile Include="src\game\worldinfo.cpp" />
     <ClCompile Include="src\player\player_spawnpoint.cpp" />
     <ClCompile Include="src\system\gameinstance.cpp" />
     <ClCompile Include="src\gen\doc_data.gen.cpp" />
@@ -10643,6 +10645,8 @@
     <ClInclude Include="godot-engine\thirdparty\zstd\zstd_errors.h" />
     <ClInclude Include="src\game\gamemode.h" />
     <ClInclude Include="src\game\menumode.h" />
+    <ClInclude Include="src\game\mode.h" />
+    <ClInclude Include="src\game\worldinfo.h" />
     <ClInclude Include="src\player\player_spawnpoint.h" />
     <ClInclude Include="src\system\gameinstance.h" />
     <ClInclude Include="src\player\player_character.h" />

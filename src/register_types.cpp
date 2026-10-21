@@ -9,6 +9,10 @@
 
 #include "system/gameinstance.h"
 #include "game/gamemode.h"
+#include "game/menumode.h"
+#include "game/mode.h"
+#include "game/worldinfo.h"
+
 #include "player/player_character.h"
 #include "player/player_spawnpoint.h"
 
@@ -22,7 +26,10 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	}
 
 	GDREGISTER_CLASS(GameInstance);
+	GDREGISTER_CLASS(Mode);
 	GDREGISTER_CLASS(GameMode);
+	GDREGISTER_CLASS(MenuMode);
+	GDREGISTER_CLASS(WorldInfo);
 	GDREGISTER_CLASS(PlayerCharacter);
 	GDREGISTER_CLASS(PlayerSpawnPoint);
 

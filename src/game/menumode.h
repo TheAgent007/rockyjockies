@@ -2,16 +2,19 @@
 #define MENUMODE_H
 
 #include "system/gameinstance.h"
-#include "godot_cpp/classes/node.hpp"
+#include "game/mode.h"
 
 using namespace godot;
 
-class MenuMode : public Node
+class MenuMode : public Mode
 {
-	GDCLASS(MenuMode, Node)
+	GDCLASS(MenuMode, Mode)
+
+protected:
+
+	static void _bind_methods();
 
 public:
-
 };
 
 #endif // MENUMODE_H
