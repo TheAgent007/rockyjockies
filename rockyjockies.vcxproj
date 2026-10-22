@@ -4577,6 +4577,7 @@
     <ClCompile Include="src\game\menumode.cpp" />
     <ClCompile Include="src\game\mode.cpp" />
     <ClCompile Include="src\game\worldinfo.cpp" />
+    <ClCompile Include="src\player\grappling_hook.cpp" />
     <ClCompile Include="src\player\player_spawnpoint.cpp" />
     <ClCompile Include="src\system\gameinstance.cpp" />
     <ClCompile Include="src\gen\doc_data.gen.cpp" />
@@ -10647,6 +10648,7 @@
     <ClInclude Include="src\game\menumode.h" />
     <ClInclude Include="src\game\mode.h" />
     <ClInclude Include="src\game\worldinfo.h" />
+    <ClInclude Include="src\player\grappling_hook.h" />
     <ClInclude Include="src\player\player_spawnpoint.h" />
     <ClInclude Include="src\system\gameinstance.h" />
     <ClInclude Include="src\player\player_character.h" />

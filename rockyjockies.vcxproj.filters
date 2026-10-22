@@ -13451,6 +13451,15 @@
     <ClCompile Include="src\system\gamesettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\mode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\worldinfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\player\grappling_hook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="godot-engine\platform\windows\uiautomationcore.arm32.def">
@@ -31632,6 +31641,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\system\gamesettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\mode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\worldinfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\player\grappling_hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

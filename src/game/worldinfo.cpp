@@ -16,6 +16,7 @@ void WorldInfo::_get_property_list(List<PropertyInfo>* p_list) const
     for (int i = 0; i < all_classes.size(); i++)
     {
         String class_name = all_classes[i];
+
         if (ClassDB::is_parent_class(class_name, target_base_type) || class_name == target_base_type)
         {
             matching_classes.append(class_name);
@@ -31,4 +32,27 @@ void WorldInfo::_get_property_list(List<PropertyInfo>* p_list) const
         hint_string,
         PROPERTY_USAGE_DEFAULT
     ));
+}
+
+bool WorldInfo::_set(const StringName& p_name, const Variant& p_value)
+{
+    if (p_name == String("mode_type"))
+    {
+        mode_type = p_value;
+        notify_property_list_changed(); // Forces inspector update
+        return true;
+    }
+
+    return false;
+}
+
+bool WorldInfo::_get(const StringName& p_name, Variant& r_ret) const
+{
+    if (p_name == String("mode_type"))
+    {
+        r_ret = mode_type;
+        return true;
+    }
+
+    return false;
 }
