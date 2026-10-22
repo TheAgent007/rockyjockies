@@ -286,6 +286,40 @@ void PlayerCharacter::update_movement(double delta)
 
 	set_velocity(velocity);
 	move_and_slide();
+
+	// check collision so we can bounce off
+	int collision_count = get_slide_collision_count();
+
+	for (int i = 0; i < collision_count; i++)
+	{
+		Ref<KinematicCollision3D> collision = get_slide_collision(i);
+		if (collision.is_valid())
+		{
+			Node3D* collider = Object::cast_to<Node3D>(collision->get_collider());
+			if (collider)
+			{
+				UtilityFunctions::print("Collided with: ", collider->get_name());
+
+				Vector3 impact_normal = collision->get_normal();
+				Vector3 position = collision->get_position(); // maybe play collision effect here
+
+				Vector3 up = Vector3(0, 1, 0);
+
+				Vector3 deflection_vector = last_velocity_direction.bounce(impact_normal) * impact_bounce_scale;
+
+				// create a forward facing the hit deflection
+				Basis basis = Basis::looking_at(deflection_vector.normalized(), up);
+
+				Transform3D transform = get_transform();
+				transform.basis = basis;
+				set_transform(transform);
+
+				last_velocity_direction = deflection_vector;
+				set_velocity(last_velocity_direction);
+				move_and_slide();
+			}
+		}
+	}
 }
 
 void PlayerCharacter::set_viewtarget(Node3D* newViewTarget, float interp_speed)

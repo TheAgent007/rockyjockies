@@ -31,6 +31,7 @@ private:
 
 	GameInstance* gameinstance_ref = nullptr;
 
+	float impact_bounce_scale = 0.5f;
 	float max_speed = 20.f; // exposed to gd
 	float max_strafe_speed = 1.0f; // exposed to gd
 	float acceleration = 2.f; // expose to gd
