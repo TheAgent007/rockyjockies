@@ -69,7 +69,6 @@ void PlayerCharacter::_ready()
 	initialize_references();
 }
 
-
 void PlayerCharacter::initialize_references() 
 {
 	UtilityFunctions::print("initializing refs");

@@ -118,7 +118,7 @@ void GameInstance::spawn_default_mode()
 	// spawn base game mode
 	Node* current_scene = tree->get_current_scene();
 
-	currentgamestate == GameState::Editor_InGame;
+	currentgamestate = GameState::Editor_InGame;
 	UtilityFunctions::print("Creating Default Mode.");
 	GameMode* new_Mode = memnew(GameMode);
 	current_scene->add_child(new_Mode);
