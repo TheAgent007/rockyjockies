@@ -128,6 +128,7 @@ void GameMode::spawn_player(int64_t peer_id)
 							add_child(new_player);
 
 							new_player->set_position(spawnpoint->get_global_position());
+							new_player->set_rotation(spawnpoint->get_global_rotation());
 						}
 					}
 				}
